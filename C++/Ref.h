@@ -15,6 +15,9 @@ public:
     virtual ~Ref();
 protected:
     unsigned int _referenceCount;
+    friend class AutoReleasePool;
+public:
+    
 };
 
 #endif

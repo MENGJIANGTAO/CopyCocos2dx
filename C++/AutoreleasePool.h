@@ -23,5 +23,24 @@ private:
     std::string _name;
     bool _isClearing;
 };
+class PoolManager
+{
+public:
+    static PoolManager *getInstance();
+    static void destroyInstance();
 
+    AutoReleasePool *getCurrentPool() const;
+    bool isObjectInPools(Ref *obj) const;
+
+    friend class AutoReleasePool;
+private:
+    PoolManager();
+    ~PoolManager();
+
+    void push(AutoReleasePool *pool);
+    void pop();
+
+    static PoolManager *s_singleInstance;
+    std::vector<AutoReleasePool*> _releasePoolStack;
+};
 #endif
